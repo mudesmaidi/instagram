@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vídeo Expirado</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    .story-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    video {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .blurred {
+      filter: blur(15px);
+    }
+
+    .expired-message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 2em;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      z-index: 2;
+    }
+
+    .show-message {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="story-container">
+    <video
+      id="storyVideo"
+      src="https://arquivosmcemp.s3.us-east-005.backblazeb2.com/previa/videoconteudos.mp4"
+      autoplay
+      muted
+      playsinline
+    ></video>
+    <div id="expiredMessage" class="expired-message">
+      Esse vídeo privado expirou!
+    </div>
+  </div>
+
+  <script>
+    const video = document.getElementById("storyVideo");
+    const message = document.getElementById("expiredMessage");
+
+    video.addEventListener("ended", () => {
+      video.classList.add("blurred");
+      message.classList.add("show-message");
+    });
+  </script>
+</body>
+</html>
